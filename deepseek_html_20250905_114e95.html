@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World 동아리</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --github-black: #0d1117;
+            --github-dark: #161b22;
+            --github-blue: #58a6ff;
+            --github-light-blue: #79c0ff;
+            --github-gray: #8b949e;
+            --github-light-gray: #c9d1d9;
+            --github-white: #f0f6fc;
+            --github-green: #3fb950;
+            --github-border: #30363d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--github-black);
+            color: var(--github-light-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* 헤더 스타일 */
+        header {
+            background-color: var(--github-dark);
+            padding: 16px 32px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--github-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--github-white);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--github-blue);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 24px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--github-light-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--github-blue);
+        }
+        
+        /* 히어로 섹션 */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 32px 60px;
+            background: linear-gradient(135deg, var(--github-dark) 0%, var(--github-black) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='2' fill='%2330363d' /%3E%3C/svg%3E");
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--github-white);
+            position: relative;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--github-blue);
+            border-radius: 2px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 24px 0 32px;
+            color: var(--github-gray);
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+        
+        .typed-text {
+            color: var(--github-blue);
+            font-weight: 500;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--github-blue);
+            color: var(--github-white);
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 1px solid var(--github-blue);
+            margin: 0 8px;
+            animation: fadeIn 1s ease-out 1s both;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--github-blue);
+        }
+        
+        .btn:hover {
+            background: var(--github-light-blue);
+            border-color: var(--github-light-blue);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(88, 166, 255, 0.1);
+        }
+        
+        /* 섹션 공통 스타일 */
+        section {
+            padding: 60px 32px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 48px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--github-white);
+            margin-bottom: 16px;
+        }
+        
+        .section-title p {
+            font-size: 18px;
+            color: var(--github-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--github-blue);
+            border-radius: 2px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* 활동 소개 섹션 */
+        .activities {
+            background-color: var(--github-dark);
+        }
+        
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .activity-card {
+            background: var(--github-black);
+            border: 1px solid var(--github-border);
+            border-radius: 6px;
+            padding: 24px;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .activity-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--github-blue);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .activity-icon {
+            font-size: 40px;
+            color: var(--github-blue);
+            margin-bottom: 16px;
+        }
+        
+        .activity-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--github-white);
+        }
+        
+        /* 역사 섹션 */
+        .history {
+            background-color: var(--github-black);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--github-border);
+        }
+        
+        .timeline-item {
+            width: 50%;
+            padding: 24px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.5s ease;
+        }
+        
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 50px;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 50px;
+        }
+        
+        .timeline-content {
+            background: var(--github-dark);
+            border: 1px solid var(--github-border);
+            border-radius: 6px;
+            padding: 20px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .timeline-content:hover {
+            transform: scale(1.02);
+            border-color: var(--github-blue);
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 15px;
+            height: 15px;
+            background: var(--github-blue);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -38px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -38px;
+        }
+        
+        .timeline-year {
+            font-weight: 700;
+            color: var(--github-blue);
+            margin-bottom: 8px;
+        }
+        
+        .teacher-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 15px auto;
+            background-color: var(--github-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--github-blue);
+            font-size: 40px;
+            overflow: hidden;
+            border: 3px solid var(--github-blue);
+        }
+        
+        /* 부장 소개 섹션 */
+        .leaders {
+            background-color: var(--github-dark);
+        }
+        
+        .leader-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+        
+        .leader-card {
+            background: var(--github-black);
+            border: 1px solid var(--github-border);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+            cursor: pointer;
+        }
+        
+        .leader-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .leader-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--github-blue);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .leader-header {
+            background: var(--github-blue);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .leader-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            background-color: var(--github-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--github-blue);
+            font-size: 40px;
+            overflow: hidden;
+            border: 3px solid var(--github-white);
+        }
+        
+        .leader-name {
+            font-size: 24px;
+            color: var(--github-white);
+            margin-bottom: 5px;
+        }
+        
+        .leader-age {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .leader-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .leader-card.active .leader-details {
+            max-height: 500px;
+        }
+        
+        .leader-body {
+            padding: 20px;
+        }
+        
+        .leader-achievements {
+            margin-bottom: 16px;
+        }
+        
+        .leader-achievements h4 {
+            color: var(--github-blue);
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .leader-achievements ul {
+            list-style: none;
+        }
+        
+        .leader-achievements li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .leader-achievements li::before {
+            content: '•';
+            color: var(--github-blue);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .leader-message {
+            border-top: 1px solid var(--github-border);
+            padding-top: 16px;
+            font-style: italic;
+            color: var(--github-gray);
+        }
+        
+        /* 연락처 섹션 */
+        .contact {
+            background-color: var(--github-black);
+            text-align: center;
+        }
+        
+        .contact-info {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-info p {
+            margin-bottom: 16px;
+            font-size: 18px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--github-dark);
+            border-radius: 50%;
+            color: var(--github-light-gray);
+            font-size: 20px;
+            transition: all 0.3s;
+            border: 1px solid var(--github-border);
+        }
+        
+        .social-links a:hover {
+            background: var(--github-blue);
+            color: var(--github-white);
+            transform: translateY(-3px);
+        }
+        
+        /* 푸터 */
+        footer {
+            background: var(--github-dark);
+            border-top: 1px solid var(--github-border);
+            padding: 32px;
+            text-align: center;
+            color: var(--github-gray);
+        }
+        
+        /* 애니메이션 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            header {
+                padding: 16px;
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 16px;
+            }
+            
+            nav li {
+                margin: 0 8px;
+            }
+            
+            .hero {
+                min-height: 80vh;
+                padding: 80px 32px 40px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding: 24px 0 24px 50px;
+                text-align: left !important;
+                left: 0 !important;
+            }
+            
+            .timeline-item:nth-child(odd) {
+                padding-right: 0;
+            }
+            
+            .timeline-item:nth-child(even) {
+                padding-left: 50px;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::before,
+            .timeline-item:nth-child(even) .timeline-content::before {
+                left: -25px;
+                right: auto;
+            }
+            
+            section {
+                padding: 40px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-code"></i>
+            <span>Hello World</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#activities">활동소개</a></li>
+                <li><a href="#history">동아리 역사</a></li>
+                <li><a href="#leaders">역대 부장</a></li>
+                <li><a href="#contact">연락처</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <h1>Hello World 동아리</h1>
+        <p>함께 성장하고 세상에 인사하는 <span class="typed-text">개발자들의 모임</span></p>
+        <div>
+            <a href="#activities" class="btn">활동 알아보기</a>
+            <a href="#leaders" class="btn btn-outline">부장 소개</a>
+        </div>
+    </section>
+
+    <!-- 활동 소개 섹션 -->
+    <section id="activities" class="activities">
+        <div class="container">
+            <div class="section-title">
+                <h2>활동 소개</h2>
+                <p>Hello World 동아리에서 진행하는 다양한 활동들을 소개합니다</p>
+            </div>
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <div class="activity-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>정기 세미나</h3>
+                    <p>매주 정기적으로 진행되는 세미나로 다양한 기술과 트렌드를 공유하고 학습합니다.</p>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>멘토링 프로그램</h3>
+                    <p>선후배 간의 지식 공유와 교류를 통해 함께 성장하는 멘토링 프로그램입니다.</p>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>해커톤 참가</h3>
+                    <p>다양한 해커톤과 프로그래밍 대회에 참가하여 실전 경험과 실력을 쌓습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 역사 섹션 -->
+    <section id="history" class="history">
+        <div class="container">
+            <div class="section-title">
+                <h2>동아리 역사</h2>
+                <p>Hello World 동아리의 발자취를 따라가 보세요</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020년</div>
+                        <p>헬로월드 동아리 창단. 오동철 선생님에 의해 창단된 소프트웨어 동아리로 시작되었습니다.</p>
+                        <div class="teacher-photo">
+                            <i class="fas fa-user-tie"></i>
+                            <!-- 오동철 선생님 사진이 있다면 <img src="odongchul.jpg" alt="오동철 선생님"> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023년</div>
+                        <p>이유준 선생님 합류. 지도 체계 강화와 활동 영역 확대로 빠른 성장을 이루었습니다.</p>
+                        <div class="teacher-photo">
+                            <i class="fas fa-user-tie"></i>
+                            <!-- 이유준 선생님 사진이 있다면 <img src="leehyujun.jpg" alt="이유준 선생님"> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2024년</div>
+                        <p>초·고 연합캠프와 중·고 연합캠프 주관. 지역과 학교 간 네트워크를 넓히며 중심적인 역할을 맡게 되었습니다.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2025년</div>
+                        <p>전성기 맞이. 많은 학생들이 동아리에 참여하며 다양한 프로젝트와 대회에서 눈에 띄는 성과를 거두었습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 부장 소개 섹션 -->
+    <section id="leaders" class="leaders">
+        <div class="container">
+            <div class="section-title">
+                <h2>역대 부장 소개</h2>
+                <p>Hello World 동아리를 이끌어간 역대 부장들을 소개합니다</p>
+            </div>
+            <div class="leader-grid">
+                <div class="leader-card">
+                    <div class="leader-header">
+                        <div class="leader-photo">
+                            <i class="fas fa-user"></i>
+                            <!-- 곽범준 부장 사진이 있다면 <img src="kwak.jpg" alt="곽범준"> -->
+                        </div>
+                        <h3 class="leader-name">곽범준</h3>
+                        <p class="leader-age">20세</p>
+                    </div>
+                    <div class="leader-details">
+                        <div class="leader-body">
+                            <div class="leader-achievements">
+                                <h4>동아리 업적</h4>
+                                <ul>
+                                    <li>4기 헬로월드 동아리 부장</li>
+                                    <li>티쳐볼 만들기 진행</li>
+                                    <li>마이크로소프트 임파워먼트 프로젝트 진행</li>
+                                    <li>프로젝트의 아두이노 소스코드와 회로도 진행</li>
+                                    <li>이미지 크롤링 진행</li>
+                                    <li>초.고 연합캠프 총괄</li>
+                                    <li>테트리스 게임 진행</li>
+                                </ul>
+                            </div>
+                            <div class="leader-message">
+                                "후배 여러분이 앞으로도 서로를 믿고 협력하며, 두려움 없이 도전해 나가기를 진심으로 응원합니다."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="leader-card">
+                    <div class="leader-header">
+                        <div class="leader-photo">
+                            <i class="fas fa-user"></i>
+                            <!-- 문승찬 부장 사진이 있다면 <img src="moon.jpg" alt="문승찬"> -->
+                        </div>
+                        <h3 class="leader-name">문승찬</h3>
+                        <p class="leader-age">19세</p>
+                    </div>
+                    <div class="leader-details">
+                        <div class="leader-body">
+                            <div class="leader-achievements">
+                                <h4>동아리 업적</h4>
+                                <ul>
+                                    <li>4기 헬로월드 동아리 부장</li>
+                                    <li>2024 헬로월드 부스 운영 총괄</li>
+                                    <li>동아리 웹사이트 제작 진행</li>
+                                    <li>인공지능 프로젝트 진행</li>
+                                    <li>아두이노 자동차 프로젝트 진행</li>
+                                </ul>
+                            </div>
+                            <div class="leader-message">
+                                "헬로월드는 단순히 소프트웨어를 배우는 동아리가 아닙니다. 서로가 함께 성장하는 공동체입니다."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 연락처 섹션 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>연락처</h2>
+                <p>Hello World 동아리에 대해 궁금한 점이 있으신가요?</p>
+            </div>
+            <div class="contact-info">
+                <p><i class="fas fa-map-marker-alt"></i> 호치민시한국국제학교 (Korean International School)</p>
+                <p><i class="fas fa-envelope"></i> ilovegyuha@gmail.com</p>
+                <p><i class="fas fa-phone"></i> 012-3456-789</p>
+                
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer>
+        <p>© 2025 Hello World. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // 스크롤 애니메이션
+        document.addEventListener('DOMContentLoaded', function() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const activityCards = document.querySelectorAll('.activity-card');
+            const leaderCards = document.querySelectorAll('.leader-card');
+            
+            // 요소들이 화면에 보일 때 애니메이션 적용
+            function animateOnScroll() {
+                timelineItems.forEach(item => {
+                    const elementPosition = item.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (elementPosition < screenPosition) {
+                        item.classList.add('visible');
+                    }
+                });
+                
+                activityCards.forEach(card => {
+                    const elementPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (elementPosition < screenPosition) {
+                        card.classList.add('visible');
+                    }
+                });
+                
+                leaderCards.forEach(card => {
+                    const elementPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (elementPosition < screenPosition) {
+                        card.classList.add('visible');
+                    }
+                });
+            }
+            
+            // 초기 로드 시에도 애니메이션 적용
+            animateOnScroll();
+            
+            // 스크롤 시 애니메이션 적용
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // 네비게이션 스크롤
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // 타자 효과
+            const typedTextSpan = document.querySelector('.typed-text');
+            const textArray = ["개발자들의 모임", "창의적인 공동체", "미래 인재 양성소"];
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            
+            function type() {
+                const currentText = textArray[textIndex];
+                
+                if (isDeleting) {
+                    typedTextSpan.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typedTextSpan.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+                
+                let typeSpeed = isDeleting ? 50 : 100;
+                
+                if (!isDeleting && charIndex === currentText.length) {
+                    isDeleting = true;
+                    typeSpeed = 1000;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % textArray.length;
+                    typeSpeed = 500;
+                }
+                
+                setTimeout(type, typeSpeed);
+            }
+            
+            // 타자 효과 시작
+            setTimeout(type, 1000);
+            
+            // 부장 카드 클릭 이벤트
+            leaderCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+            
+            // 펄스 애니메이션
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.classList.add('pulse');
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.classList.remove('pulse');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
